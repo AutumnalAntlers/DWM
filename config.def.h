@@ -10,7 +10,7 @@ static const unsigned int gappov    = 35;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 12;       /* vertical padding of bar */
+static const int vertpad            = 30;       /* vertical padding of bar */
 static const int sidepad            = 35;       /* horizontal padding of bar */
 static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 12;        /* vertical padding for statusbar */
@@ -78,7 +78,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
-static Key keys[] = {	/* I currently bind all my keys in SXHKD, though I'd like to move some WM-specific ones here ltr when I try i3, etc */
+static Key keys[] = {	/* I currently bind all of my keys in SXHKD so no keys are bound here. */ 
+			/* I'd like to move some WM-specific ones here later when I try other WM's, but for now, don't press F13. */
 	/* modifier                     key                function        argument */
 	{ MODKEY,                      /*XK_p,     */ XK_F13, spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,            /*XK_Return,*/ XK_F13, spawn,          {.v = termcmd } },
