@@ -10,6 +10,14 @@ static const unsigned int gappov    = 35;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+
+/*   Display modes of the tab bar: never shown, always shown, shown only in */
+/*   monocle mode in presence of several windows.                           */
+/*   Modes after showtab_nmodes are disabled                                */
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
+static const int showtab            = showtab_auto; /* Default tab bar show mode */
+static const Bool toptab            = False;    /* False means bottom tab bar */
+
 static const int vertpad            = 30;       /* vertical padding of bar */
 static const int sidepad            = 35;       /* horizontal padding of bar */
 static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
@@ -30,6 +38,11 @@ static char *colors[][3] = {
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+/* default layout per tags */
+/* The first element is for all-tag view, following i-th element corresponds to */
+/* tags[i]. Layout is referred using the layouts array index.*/
+static int def_layouts[1 + LENGTH(tags)]  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -84,6 +97,7 @@ static Key keys[] = {	/* I currently bind all of my keys in SXHKD so no keys are
 	{ MODKEY,                      /*XK_p,     */ XK_F13, spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,            /*XK_Return,*/ XK_F13, spawn,          {.v = termcmd } },
 	{ MODKEY,                      /*XK_b,     */ XK_F13, togglebar,      {0} },
+	{ MODKEY,                      /*XK_w,     */ XK_F13, tabmode,        {-1} },
 	{ MODKEY|ShiftMask,            /*XK_j,     */ XK_F13, rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,            /*XK_k,     */ XK_F13, rotatestack,    {.i = -1 } },
 	{ MODKEY,                      /*XK_j,     */ XK_F13, focusstack,     {.i = +1 } },
@@ -159,6 +173,7 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
 
 void
