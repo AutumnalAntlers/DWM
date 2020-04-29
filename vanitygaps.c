@@ -441,6 +441,6 @@ tile(Monitor *m)
 			my += HEIGHT(c) + ih - c->bw;
 		} else {
 			resize(c, sx - c->bw, sy - c->bw, sw + 1, sh * (c->cfact / sfacts), 0);
-			sy += HEIGHT(c) + ih - c->bw - 5.2;
+			sy += HEIGHT(c) + ih - (1.85*c->bw);
 		}
 }
