@@ -435,12 +435,12 @@ tile(Monitor *m)
 	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
 			if(n == 1)
-				resize(c, mx - c->bw, my, mw - (2*c->bw), mh * (c->cfact / mfacts) - c->bw, 0);
+				resize(c, mx - c->bw, my - c->bw, mw - (2*c->bw), mh * (c->cfact / mfacts) - c->bw, 0);
 			else
-				resize(c, mx - c->bw, my, mw - (2*c->bw), mh * (c->cfact / mfacts) - c->bw, 0);
+				resize(c, mx - c->bw, my - c->bw, mw - c->bw, mh * (c->cfact / mfacts), 0);
 			my += HEIGHT(c) + ih - c->bw;
 		} else {
-			resize(c, sx - c->bw, sy - c->bw, sw - (2*c->bw), sh * (c->cfact / sfacts) - (c->bw / 2), 0);
+			resize(c, sx - c->bw, sy - c->bw, sw - (2*c->bw), sh * (c->cfact / sfacts), 0);
 			sy += HEIGHT(c) + ih - c->bw;
 		}
 }
