@@ -2408,11 +2408,10 @@ updatebarpos(Monitor *m)
 	if (m->showbar) {
 		m->wh = m->wh - vertpad - bh;
 		m->by = m->topbar ? m->wy : m->wy + m->wh + vertpad;
-		m->by = -bh - vp;
                 if ( m->topbar )
-                        m->wy += bh;
-        } else {
-                m->by = -bh;
+        		m->wy += bh - vp;
+	} else {
+		m->by = -bh - vp;
         }
  
         for(c = m->clients; c; c = c->next){
