@@ -50,7 +50,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class	instance	title		tags mask	isfloating	monitor */
-	{ "Gimp",	NULL,		NULL,		0,		1,		-1, },
+	/* { "Gimp",	NULL,		NULL,		0,		1,		-1, }, */
 	{ "Firefox",	NULL,		NULL,		0,		0,		-1, },
 	{ "Firefox",	NULL,		"Library",	0,		1,		-1, },
 	{ "Wpg",	"wpg",		NULL,		0,		1,		-1, },
@@ -66,12 +66,12 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
+	{ "H[]",      deck },
+	{ "[M]",      monocle },
 	{ "⟦@⟧",      spiral },
 	{ "⟦➘⟧",      dwindle },
-	{ "H[]",      deck },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
-	{ "[M]",      monocle },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 
@@ -88,10 +88,10 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, topbar ? NULL : "-b", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
-static Key keys[] = {	/* I currently bind all of my keys in SXHKD so no keys are bound here. */ 
+static Key keys[] = {	/* I currently bind all of my keys in SXHKD so no keys are bound here. */
 			/* I'd like to move some WM-specific ones here later when I try other WM's, but for now, don't press F13. */
 	/* modifier                     key                function        argument */
 	{ MODKEY,                      /*XK_p,     */ XK_F13, spawn,          {.v = dmenucmd } },
@@ -242,6 +242,7 @@ static Signal signals[] = {
         { "tagex",          tagex },
         { "toggletag",      tag },
         { "toggletagex",    toggletagex },
+	{ "spawn",	    spawn },
         { "killclient",     killclient },
         { "quit",           quit },
 /*      { "setgaps",        setgaps }, */
