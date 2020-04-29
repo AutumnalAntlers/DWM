@@ -2304,7 +2304,7 @@ toggleview(const Arg *arg)
                         selmon->pertag->curtag = i + 1;
                 }
 		selmon->tagset[selmon->seltags] = newtagset;
- 
+
                 /* apply settings for this view */
                 selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag];
                 selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag];
@@ -2409,15 +2409,15 @@ updatebarpos(Monitor *m)
 		m->wh = m->wh - vertpad - bh;
 		m->by = m->topbar ? m->wy : m->wy + m->wh + vertpad;
                 if ( m->topbar )
-        		m->wy += bh - vp;
+        		m->wy += bh + vp;
 	} else {
 		m->by = -bh - vp;
         }
- 
+
         for(c = m->clients; c; c = c->next){
           if(ISVISIBLE(c)) ++nvis;
         }
- 
+
         if(m->showtab == showtab_always
            || ((m->showtab == showtab_auto) && (nvis > 1) && (m->lt[m->sellt]->arrange == monocle))){
                 m->wh -= th;
@@ -2633,7 +2633,7 @@ view(const Arg *arg)
 {
         int i;
         unsigned int tmptag;
- 
+
         if((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
 		return;
 	selmon->seltags ^= 1; /* toggle sel tagset */
